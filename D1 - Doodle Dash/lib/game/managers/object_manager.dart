@@ -26,8 +26,28 @@ class ObjectManager extends Component with HasGameRef<DoodleDash> {
   final List<Platform> _platforms = [];
 
   // Add Platforms: Add onMount method
+  @override
+  void update(double dt) {
+    final topOfLowestPlatform =
+        _platforms.first.position.y + _tallestPlatformHeight;
 
-  // Add Platforms: Add update method
+    final screenBottom = gameRef.player.position.y +
+        (gameRef.size.x / 2) +
+        gameRef.screenBufferSpace;
+
+    if (topOfLowestPlatform > screenBottom) {
+      var newPlatY = _generateNextY();
+      var newPlatX = _generateNextX(100);
+
+      final nextPlat = _semiRandomPlatform(Vector2(newPlatX, newPlatY));
+      add(nextPlat);
+
+      _platforms.add(nextPlat);
+      gameRef.gameManager.increaseScore();
+      _cleanupPlatforms();
+    }
+    super.update(dt);
+  }
 
   final Map<String, bool> specialPlatforms = {
     'spring': true, // level 1
@@ -99,7 +119,9 @@ class ObjectManager extends Component with HasGameRef<DoodleDash> {
     return currentHighestPlatformY - distanceToNextY;
   }
 
-  // Add platforms: Add _semiRandomPlatform method
+  Platform _semiRandomPlatform(Vector2 position) {
+    return NormalPlatform(position: position);
+  }
 
   // Losing the game: Add enemy code
 

@@ -1,4 +1,5 @@
-
+import 'package:doodle_dash/game/sprites/player.dart';
+import 'package:doodle_dash/main.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
@@ -14,13 +15,12 @@ class DoodleDash extends FlameGame
   DoodleDash({super.children});
 
   final World _world = World();
-  LevelManager levelManager = LevelManager();
+  achieved levelManager = achieved();
   GameManager gameManager = GameManager();
   int screenBufferSpace = 300;
   ObjectManager objectManager = ObjectManager();
 
-  // Add a Player to the game: Create a Player variable
-
+  late Player player;
   @override
   Future<void> onLoad() async {
     await add(_world);
@@ -59,7 +59,7 @@ class DoodleDash extends FlameGame
   }
 
   void initializeGameStart() {
-    // Add a Player to the game: Call setCharacter
+    setCharacter();
 
     gameManager.reset();
 
@@ -67,9 +67,7 @@ class DoodleDash extends FlameGame
 
     levelManager.reset();
 
-    // Core gameplay: Reset player & camera boundaries
-
-    // Add a Player to the game: Reset Dash's position back to the start
+    player.resetPosition();
 
     objectManager = ObjectManager(
         minVerticalDistanceToNextPlatform: levelManager.minDistance,
@@ -81,8 +79,10 @@ class DoodleDash extends FlameGame
   }
 
   void setCharacter() {
-    // Add a Player to the game: Initialize character
-    // Add a Player to the game: Add player
+    player = Player(
+        character: gameManager.character,
+        jumpSpeed: levelManager.startingJumpSpeed);
+    add(player);
   }
 
   void startGame() {
