@@ -40,13 +40,12 @@ class Player extends SpriteGroupComponent<PlayerState>
   bool get isMovingDown => _velocity.y > 0;
   Character character;
   double jumpSpeed;
-  // Core gameplay: Add _gravity property
+  final double _gravity = 9;
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
-
-    // Core gameplay: Add circle hitbox to Dash
+    await add(CircleHitbox());
     await _loadCharacterSprites();
     current = PlayerState.center;
   }
@@ -66,6 +65,7 @@ class Player extends SpriteGroupComponent<PlayerState>
     if (position.x > gameRef.size.x - (dashHorizontalCenter)) {
       position.x = dashHorizontalCenter;
     }
+    _velocity.y += _gravity;
     position += _velocity * dt;
 
     super.update(dt);
