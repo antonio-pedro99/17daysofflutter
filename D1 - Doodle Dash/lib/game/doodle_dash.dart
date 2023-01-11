@@ -115,4 +115,5 @@ class DoodleDash extends FlameGame
       // Core gameplay: Call setJumpSpeed
     }
   }
+  
 }

@@ -25,7 +25,31 @@ class ObjectManager extends Component with HasGameRef<DoodleDash> {
   final double _tallestPlatformHeight = 50;
   final List<Platform> _platforms = [];
 
-  // Add Platforms: Add onMount method
+  @override
+  void onMount() {
+    super.onMount();
+
+    var currentX = (gameRef.size.x.floor() / 2).toDouble() - 50;
+    var currentY =
+        gameRef.size.y - (_rand.nextInt(gameRef.size.y.floor()) / 3) - 50;
+    for (var i = 0; i < 9; i++) {
+      if (i != 0) {
+        currentX = _generateNextX(100);
+        currentY = _generateNextY();
+      }
+      _platforms.add(
+        _semiRandomPlatform(
+          Vector2(
+            currentX,
+            currentY,
+          ),
+        ),
+      );
+
+      add(_platforms[i]);
+    }
+  }
+
   @override
   void update(double dt) {
     final topOfLowestPlatform =
