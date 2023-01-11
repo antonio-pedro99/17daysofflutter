@@ -2,7 +2,7 @@
 
 A platformer game with Flutter and Flame! In the Doodle Dash game, inspired by Doodle Jump, you play as either Dash (the Flutter mascot), or her best friend Sparky (the Firebase mascot), and try to reach as high as possible by jumping on platforms.
 
-Codelab: [Lab:Building a game with Flutter and Flame](https://codelabs.developers.google.com/codelabs/flutter-flame-game)
+Codelab: [Building a game with Flutter and Flame](https://codelabs.developers.google.com/codelabs/flutter-flame-game)
 
 ## Game's Features
 
